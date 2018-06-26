@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
 
     int **arr = (int **)malloc((num_full_blocks+1) * sizeof(int *));
     if(arr == NULL){
-    	std::cout << "Failed allocating main array" <<std::cout;
+    	std::cout << "Failed allocating main array" <<std::endl;
     	return EXIT_FAILURE;
     }
 

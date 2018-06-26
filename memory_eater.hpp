@@ -1,3 +1,4 @@
+#pragma once
 #include<stdlib.h>
 #include<stdio.h>
 #include<iostream>
@@ -7,7 +8,6 @@
 #include<vector>
 
 
-#pragma once
 
 class MemoryEater
 {
@@ -22,6 +22,6 @@ class MemoryEater
 		int** arr;
 		void allocate_memory();
 		float parse(std::string);
-		std::cout<int> allocated;
+		std::vector<int> allocated;
 
 };

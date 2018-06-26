@@ -70,25 +70,23 @@ void MemoryEater::allocate_memory(){
 
     this->arr = (int **)malloc((num_full_blocks+1) * sizeof(int *));
     if(arr == NULL){
-    	std::cout << "Failed allocating main array" <<std::cout;
-    	return EXIT_FAILURE;
+    	std::cout << "Failed allocating main array" <<std::endl;
     }
 
-	std::vector<int> memory_ok;
     arr[0] = (int *)malloc(sizeof(int)*partial_block_memory); 
     
     if(arr[0]!= NULL )
     {	
 	memset(arr[0],7,sizeof(int)*partial_block_memory);
     	this->allocated_memory+=sizeof(int)*partial_block_memory;
-    	memory_ok.push_back(0);
+    	this->allocated.push_back(0);
     }
     
     for (int i=1; i<num_full_blocks+1; i++){
          arr[i] = (int *)calloc(block_size,sizeof(int));
     if(arr[i] != NULL){
 	 memset(arr[i],5,block_size*sizeof(int));
-	memory_ok.push_back(i);
+	this->allocated.push_back(i);
 	this->allocated_memory+=sizeof(int)*block_size;
 	 }
     }
@@ -99,9 +97,22 @@ void MemoryEater::allocate_memory(){
 	arr[i][0]=arr[0][0];
 	}
 
-	std::cout << "Allocated " << allocated_memory << "Bytes of memory." << std::endl;
+	std::cout << "Allocated " <<this->allocated_memory << "Bytes of memory." << std::endl;
 
 }
 
+void MemoryEater::free_memory(){
 
+    for(auto it = this->allocated.begin(); it != this->allocated.end(); it++){
+    
+         free(arr[*it]);    
+    }
+
+
+	free(arr);
+
+
+
+
+}
 
