@@ -46,12 +46,11 @@ float MemoryEater::parse(std::string input){
 
 
 MemoryEater::MemoryEater(std::string m_input){
-	total_memory = parse(m_input);
+	total_memory = parse(m_input)/sizeof(int);
 	allocate_memory();
 
 }
 MemoryEater::~MemoryEater(){
-	free_memory();
 }
 
 void MemoryEater::allocate_memory(){
@@ -73,17 +72,23 @@ void MemoryEater::allocate_memory(){
     	std::cout << "Failed allocating main array" <<std::endl;
     }
 
+
+    if(partial_block_memory == 0){
     arr[0] = (int *)malloc(sizeof(int)*partial_block_memory); 
-    
+
+
     if(arr[0]!= NULL )
     {	
 	memset(arr[0],7,sizeof(int)*partial_block_memory);
     	this->allocated_memory+=sizeof(int)*partial_block_memory;
     	this->allocated.push_back(0);
     }
-    
+    }
+
+
     for (int i=1; i<num_full_blocks+1; i++){
-         arr[i] = (int *)calloc(block_size,sizeof(int));
+	    std::cout << "X" << std::endl;
+	    arr[i] = (int *)calloc(block_size,sizeof(int));
     if(arr[i] != NULL){
 	 memset(arr[i],5,block_size*sizeof(int));
 	this->allocated.push_back(i);
@@ -104,7 +109,6 @@ void MemoryEater::allocate_memory(){
 void MemoryEater::free_memory(){
 
     for(auto it = this->allocated.begin(); it != this->allocated.end(); it++){
-    
          free(arr[*it]);    
     }
 
