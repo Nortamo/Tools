@@ -5,9 +5,9 @@ int main(){
 
 	auto str = "10g";
 
-	MemoryEater me(str);
+	auto md = new MemoryEater(str);
 
-	me.free_memory();
+	delete md;
 
 	return 0;
 

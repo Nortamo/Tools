@@ -19,20 +19,20 @@ float MemoryEater::parse(std::string input){
 					break;
 				case 'm':
 					factor = 1e6;
-				      	break;
+					break;
 				case 'g':
 					factor = 1e9;
-				      	break;
+					break;
 				case 't':
 					factor= 1e12;
 					break;
 				default:
-				      std::cout << "Unrecoginzed prefix" << std::endl; 
+					std::cout << "Unrecoginzed prefix" << std::endl; 
 			}
-			
+
 			value = std::stof(input.substr(0,len-1));
 		}
-	
+
 		return factor*value;
 	} catch(...){
 		std::cout << "Error: argument is not a valid number\n";
@@ -48,16 +48,22 @@ float MemoryEater::parse(std::string input){
 MemoryEater::MemoryEater(std::string m_input){
 	total_memory = parse(m_input)/sizeof(int);
 	allocate_memory();
+	this->freed=false;
 
 }
 MemoryEater::~MemoryEater(){
+	if(!freed){
+	free_memory();
+	freed=true;
+	}
+
 }
 
 void MemoryEater::allocate_memory(){
-	
+
 
 	std::cout << "Using a minimum of " << this->total_memory*4 << " bytes" << std::endl; 	
-	
+
 	int block_size=1e9/(sizeof(int));
 
 	float num_full_blocks = total_memory/block_size;
@@ -67,38 +73,38 @@ void MemoryEater::allocate_memory(){
 	this->allocated_memory =0;
 
 
-    this->arr = (int **)malloc((num_full_blocks+1) * sizeof(int *));
-    if(arr == NULL){
-    	std::cout << "Failed allocating main array" <<std::endl;
-    }
+	this->arr = (int **)malloc((num_full_blocks+1) * sizeof(int *));
+	if(arr == NULL){
+		std::cout << "Failed allocating main array" <<std::endl;
+	}
 
 
-    if(partial_block_memory == 0){
-    arr[0] = (int *)malloc(sizeof(int)*partial_block_memory); 
+	if(partial_block_memory == 0){
+		arr[0] = (int *)malloc(sizeof(int)*partial_block_memory); 
 
 
-    if(arr[0]!= NULL )
-    {	
-	memset(arr[0],7,sizeof(int)*partial_block_memory);
-    	this->allocated_memory+=sizeof(int)*partial_block_memory;
-    	this->allocated.push_back(0);
-    }
-    }
+		if(arr[0]!= NULL )
+		{	
+			memset(arr[0],7,sizeof(int)*partial_block_memory);
+			this->allocated_memory+=sizeof(int)*partial_block_memory;
+			this->allocated.push_back(0);
+		}
+	}
 
 
-    for (int i=1; i<num_full_blocks+1; i++){
-	    arr[i] = (int *)calloc(block_size,sizeof(int));
-    if(arr[i] != NULL){
-	 memset(arr[i],5,block_size*sizeof(int));
-	this->allocated.push_back(i);
-	this->allocated_memory+=sizeof(int)*block_size;
-	 }
-    }
+	for (int i=1; i<num_full_blocks+1; i++){
+		arr[i] = (int *)calloc(block_size,sizeof(int));
+		if(arr[i] != NULL){
+			memset(arr[i],5,block_size*sizeof(int));
+			this->allocated.push_back(i);
+			this->allocated_memory+=sizeof(int)*block_size;
+		}
+	}
 
 
 
 	for(int i=0 ; i< num_full_blocks+1; i++){
-	arr[i][0]=arr[0][0];
+		arr[i][0]=arr[0][0];
 	}
 
 	std::cout << "Allocated " <<this->allocated_memory << "Bytes of memory." << std::endl;
@@ -107,13 +113,13 @@ void MemoryEater::allocate_memory(){
 
 void MemoryEater::free_memory(){
 
-    for(auto it = this->allocated.begin(); it != this->allocated.end(); it++){
-         free(arr[*it]);    
-    }
+	for(auto it = this->allocated.begin(); it != this->allocated.end(); it++){
+		free(arr[*it]);    
+	}
 
 
 	free(arr);
-
+	this->freed=true;
 
 
 

@@ -23,5 +23,6 @@ class MemoryEater
 		void allocate_memory();
 		float parse(std::string);
 		std::vector<int> allocated;
+		bool freed;
 
 };
