@@ -47,9 +47,9 @@ int i = elems_per_thread*(blockDim.x * blockIdx.x + threadIdx.x);
 
 int main(void){
 
-	int num_blocks =5000;
+	int num_blocks =14;
 	int num_threads_per_block=256;
-	int elems_per_thread = 5;
+	int elems_per_thread = 360;
 	int num_elements = num_blocks*num_threads_per_block*elems_per_thread;
 
 	float *host_array_b =(float *) malloc(num_elements*sizeof(float));

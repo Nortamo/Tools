@@ -1,5 +1,5 @@
 
-all: transfer_test flops_test
+all: transfer_test flops_test 
 	
 transfer_test: transfer.cu
 	nvcc -o transfer_test -Xptxas -O3  transfer.cu
