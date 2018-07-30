@@ -14,11 +14,11 @@ run_flops: flops_test
 flops_test: flops.cu
 	nvcc -Xptxas -O3 -o flops_test flops.cu
 
-debug_ptx: flops.cu
+kernel.ptx: flops.cu
 	nvcc -Xptxas -O3  -ptx -o kernel.ptx  flops.cu
 
-debug_binary: flops.cu
-	cuobjdump  --dump-sass flops.cu   > cuda_obj_dump.out
+cuda_obj_dump:  flops_test
+	cuobjdump  --dump-sass flops_test   > cuda_obj_dump
 
 clean:
 	rm -f kernel.ptx cuda_obj_dump flops_test transfer_test
