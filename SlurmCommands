@@ -6,4 +6,6 @@ sacctmgr -p show assoc | cut -d '|' -f 1,3-4,8,11,14 | grep nortamh2
 # Show saldo for a specific project
 saldo -p 2001068
 
-
+# Show raw slurm data
+# Like % mem and cpu-usage
+seff <ID>
