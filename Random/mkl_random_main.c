@@ -2,11 +2,6 @@
 #include <time.h>
 #include <stdlib.h>
 
-void freeptr(void *ptr)
-{
-    free(ptr);
-}
-
 
 
 float * c_randn(int N) {
@@ -18,11 +13,18 @@ float * c_randn(int N) {
 	return a;
 }
 
-void c_randn_numpy(int N,float * a){
-	srand(time(NULL));
-	VSLStreamStatePtr stream1;
-	vslNewStream(&stream1, VSL_BRNG_MCG31, rand());
-	vsRngGaussian(VSL_RNG_METHOD_GAUSSIAN_BOXMULLER,stream1,N,a,0,1);
+
+
+
+int main(){
+	int num = 100000000;
+	float * array = c_randn(num);
+	int i=0;
+//	for(i=0; i < num; i++){
+//	printf("%f\n",array[i]);
+//	}
+	printf("%f\n",array[4]);
+	free(array);
 }
 
 
