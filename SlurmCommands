@@ -8,4 +8,7 @@ saldo -p 2001068
 
 # Show raw slurm data
 # Like % mem and cpu-usage
+
 seff <ID>
+sacct
+scontrol
