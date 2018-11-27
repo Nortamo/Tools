@@ -4,11 +4,12 @@
 sacctmgr -p show assoc | cut -d '|' -f 1,3-4,8,11,14 | grep nortamh2
 
 # Show saldo for a specific project
-saldo -p 2001068
+saldo -p ######
 
 # Show raw slurm data
 # Like % mem and cpu-usage
-
 seff <ID>
-sacct
+# Show slurm history
+sacct 
+# View and modify running job
 scontrol

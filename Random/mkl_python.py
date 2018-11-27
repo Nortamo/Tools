@@ -1,7 +1,7 @@
 import ctypes
 import matplotlib.pyplot as plt
 
-N =10000000
+N =100000
 
 lib_c = ctypes.CDLL('./mkl_random.so')
 
