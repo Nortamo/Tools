@@ -19,7 +19,7 @@ for( unsigned int j = i*updates_per_thread ; j < (i+1)*updates_per_thread; j++){
 }
 int main(void){
 	
-	double transfer_memory_size = 1e10;
+	double transfer_memory_size = 1e8;
 	int num_elements = (transfer_memory_size/sizeof(double));
 	double *host_array = (double*) malloc(sizeof(double)*num_elements); 
 	double *device_array;
