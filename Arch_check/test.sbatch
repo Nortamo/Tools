@@ -2,12 +2,13 @@
 
 #SBATCH -t 00:05:00
 #SBATCH -N 1
-#SBATCH -n 2
-#SBATCH -p test
-#SBATCH -c 2
-#SBATCH --mem=5G
+#SBATCH -n 1
+#SBATCH -c 1
+#SBATCH --mem=500M
 
-#as -a --gstabs -o x.o x.s
-#ld -o x x.o
-#aprun -n 2 ./x
-aprun -n 2 ./a.out
+
+# Using Cray based machine (Sisu)
+#aprun ./hello_asm
+
+# Using Taito
+#srun ./hello_asm
