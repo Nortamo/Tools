@@ -17,7 +17,7 @@ float * c_randn(int N) {
 
 
 int main(){
-	int num = 100000000;
+	int num = 1000000;
 	float * array = c_randn(num);
 	int i=0;
 //	for(i=0; i < num; i++){

@@ -13,7 +13,7 @@ unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
    std::default_random_engine generator(seed); 
    std::normal_distribution<float> distribution(0,1.0);
 
-	int N = 100000000;
+	int N = 1000000;
 
 
 	float* b = (float *) malloc(sizeof(float)*N);
